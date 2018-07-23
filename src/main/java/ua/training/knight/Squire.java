@@ -1,8 +1,16 @@
 package ua.training.knight;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,22 +21,28 @@ import java.util.List;
  *
  */
 public class Squire {
-	private static final String pathToEquipmentList = "JET_task_1/src/main/resources/ua/training/equipment/equipmentList";
+	private static final String pathToEquipmentList = "src/main/resources/ua/training/equipment/equipmentList";
 	private List<AbstractEquipmentItem> equipmentUnderManagement;
+	private Smith smith;
 	
 	public Squire() {
+		smith = new Smith();
 		equipmentUnderManagement = procureEquipment();
 	}
 	
-	private static List<AbstractEquipmentItem> procureEquipment() {
-		List<AbstractEquipmentItem> equipmentList = new ArrayList<>();
-		try{
-			FileInputStream fIS = new FileInputStream(new File(pathToEquipmentList));
-		} catch (FileNotFoundException e) {
+	private List<AbstractEquipmentItem> procureEquipment() {
+		List<AbstractEquipmentItem> equipment = new ArrayList<>();
+		try {
+			for( String line : (Files.readAllLines(Paths.get(pathToEquipmentList))) ) {
+				equipment.add(smith.buildBySpecification(line));
+			}
+			
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		return equipmentList;
+		
+		return equipment;
 	}
 	
 	public String managedEquipment(){/*TODO*/ return null;}
@@ -69,5 +83,16 @@ public class Squire {
 		}
 		
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder("Squire manages this equipment: \n");
+		for(AbstractEquipmentItem aei : equipmentUnderManagement) {
+			str.append("	"  + aei.toString() + "\n");
+		}
+		return str.toString();
+	}
+	
+	
 }
 

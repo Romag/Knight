@@ -9,9 +9,20 @@ package ua.training.knight;
 public class Smith {
 	private String[] specsList;
 	
-	public AbstractEquipmentItem buildBySpecification(String specs) {
-		return null;
+	//TODO remove hardcoded version
+	public AbstractEquipmentItem buildBySpecification(String spec) {
+		String[] parsedSpecs = spec.split(" ");
 		
+		String name = parsedSpecs[0];
+		int weight = Integer.parseInt(parsedSpecs[1]);
+		int price = Integer.parseInt(parsedSpecs[2]);
+		
+		return new AbstractEquipmentItem(name, weight, price) {
+
+			@Override
+			public String toString() {
+				return super.toString();
+			}};
 	}
 	
 }
