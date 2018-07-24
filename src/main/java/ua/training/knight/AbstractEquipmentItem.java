@@ -8,6 +8,8 @@ public abstract class AbstractEquipmentItem
 					implements IEquipmentPiece, ComparableByPrice<AbstractEquipmentItem>, 
 												ComparableByWeight<AbstractEquipmentItem> {
 	private String name;
+
+
 	private int weight;
 	private int price;
 	
@@ -57,6 +59,10 @@ public abstract class AbstractEquipmentItem
 	
 	public int getPrice() {
 		return price;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	@Override

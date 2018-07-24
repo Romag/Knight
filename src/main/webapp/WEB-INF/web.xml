@@ -6,14 +6,4 @@
 
   <display-name>Archetype Created Web Application</display-name>
   
-  <servlet>
-  	<servlet-name>myServlet</servlet-name>
-  	<servlet-class>ua.training.MyServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>myServlet</servlet-name>
-  	<url-pattern>/myServlet</url-pattern>
-  </servlet-mapping>
-  
 </web-app>

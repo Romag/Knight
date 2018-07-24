@@ -21,13 +21,6 @@ public class Main {
 		Squire sq = new Squire();
 		System.out.println(sq.toString());
 		
-		sq.sortEquipmentByPrice();
-		System.out.println("After sorting by price");
-		System.out.println(sq.toString());
-		
-		sq.sortequipmentByWeight();
-		System.out.println("After sorting by weight");
-		System.out.println(sq.toString());
 	}
 	
 

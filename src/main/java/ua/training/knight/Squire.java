@@ -21,7 +21,7 @@ import java.util.List;
  *
  */
 public class Squire {
-	private static final String pathToEquipmentList = "src/main/resources/ua/training/equipment/equipmentList";
+	private static final String pathToEquipmentList = "/home/ramil/workspace/eclipseWorkspace/JET_task_1/src/main/resources/ua/training/equipment/equipmentList.txt";
 	private List<AbstractEquipmentItem> equipmentUnderManagement;
 	private Smith smith;
 	
@@ -31,6 +31,7 @@ public class Squire {
 	}
 	
 	private List<AbstractEquipmentItem> procureEquipment() {
+		//TODO add ability to choose which file to use to get list of equipment
 		List<AbstractEquipmentItem> equipment = new ArrayList<>();
 		try {
 			for( String line : (Files.readAllLines(Paths.get(pathToEquipmentList))) ) {
@@ -45,17 +46,37 @@ public class Squire {
 		return equipment;
 	}
 	
-	public String managedEquipment(){/*TODO*/ return null;}
+	public String showEquipmentSortedByWeight() {
+		sortEquipmentByWeight();
+		return managedEquipment();
+	}
+	
+	public String managedEquipment(){
+		StringBuilder strb = new StringBuilder();
+		for(AbstractEquipmentItem item : equipmentUnderManagement) {
+			strb.append(item.getName() + " ");
+		}
+		return strb.toString();
+	}
+	
+	public int calculateTotalCost() {
+		//TODO cached version of cost calculation, to eliminate need to calculate it every time
+		int sum=0;
+		for(AbstractEquipmentItem item : equipmentUnderManagement) 
+			sum += item.getPrice();
+		
+		return sum;
+	}
 	
 	public void addItem(AbstractEquipmentItem iEP) {
 		equipmentUnderManagement.add(iEP); 
 	}
-	
-	public void sortequipmentByWeight() {
+
+	private void sortEquipmentByWeight() {
 		equipmentUnderManagement.sort(new ComparatorByWeight<AbstractEquipmentItem>());
 	}
 	
-	public void sortEquipmentByPrice() {
+	private void sortEquipmentByPrice() {
 		equipmentUnderManagement.sort(new ComparatorByPrice<AbstractEquipmentItem>());
 	}
 	
@@ -88,11 +109,31 @@ public class Squire {
 	public String toString() {
 		StringBuilder str = new StringBuilder("Squire manages this equipment: \n");
 		for(AbstractEquipmentItem aei : equipmentUnderManagement) {
-			str.append("	"  + aei.toString() + "\n");
+			str.append("	["  + aei.toString() + "]\n");
 		}
 		return str.toString();
 	}
 	
+	/*
+	 * Range is inclusive on both ends.
+	 */
+	public String equipmentWithinPriceRange(int lowPrice, int highPrice) {
+		StringBuilder strb = new StringBuilder();
+		
+		for(AbstractEquipmentItem item : equipmentUnderManagement)
+			if(withingRange(lowPrice, highPrice, item.getPrice())) 
+				strb.append(item.getName() + " ");
+		
+		
+		return strb.toString();
+	}
 	
+	/*
+	 * Inclusive range
+	 */
+	private boolean withingRange(int low, int high, int value) {
+		return low <= value 
+					&& value <= high;
+	}
 }
 

@@ -2,7 +2,7 @@ package ua.training.knight;
 
 
 /**
- * Factory pattern implementation for equipment.
+ * Builder pattern implementation for equipment.
  * @author ramil
  *
  */
