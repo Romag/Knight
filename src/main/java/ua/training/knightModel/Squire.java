@@ -1,4 +1,4 @@
-package ua.training.knight;
+package ua.training.knightModel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +14,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import javax.swing.text.Highlighter.HighlightPainter;
+
+import ua.training.knightModel.equipment.AbstractEquipmentItem;
 
 /**
  * Manages equipment(weapons and armor) for a warrior(knight).
@@ -48,24 +52,34 @@ public class Squire {
 	
 	public String showEquipmentSortedByWeight() {
 		sortEquipmentByWeight();
-		return managedEquipment();
+		return managedEquipmentHTML();
 	}
 	
 	public String managedEquipment(){
 		StringBuilder strb = new StringBuilder();
 		for(AbstractEquipmentItem item : equipmentUnderManagement) {
-			strb.append(item.getName() + " ");
+			strb.append(item.getName() + " " + item.getWeight() + " " + item.getPrice());
 		}
 		return strb.toString();
 	}
 	
-	public int calculateTotalCost() {
+	public String managedEquipmentHTML() {
+		StringBuilder strb = new StringBuilder();
+		for(AbstractEquipmentItem item : equipmentUnderManagement) {
+			strb.append("<br />" + item.getName() + " " 
+						+ item.getWeight() + Units.KILOGRAM.toString() + " " 
+						+ item.getPrice() + Units.FLORIN.toString());
+		}
+		return strb.toString();
+	}
+	
+	public String calculateTotalCost() {
 		//TODO cached version of cost calculation, to eliminate need to calculate it every time
 		int sum=0;
 		for(AbstractEquipmentItem item : equipmentUnderManagement) 
 			sum += item.getPrice();
 		
-		return sum;
+		return "<br />Total cost of equipment: " + sum + Units.FLORIN.toString();
 	}
 	
 	public void addItem(AbstractEquipmentItem iEP) {
@@ -122,7 +136,21 @@ public class Squire {
 		
 		for(AbstractEquipmentItem item : equipmentUnderManagement)
 			if(withingRange(lowPrice, highPrice, item.getPrice())) 
-				strb.append(item.getName() + " ");
+				strb.append(item.getName() + " "
+						+ item.getPrice() + Units.FLORIN.toString());
+		
+		
+		return strb.toString();
+	}
+	
+	public String equipmentWithinPriceRangeHTML(int lowPrice, int highPrice) {
+		StringBuilder strb = new StringBuilder();
+		
+		strb.append("<br />Equipment within ["+lowPrice+"-"+highPrice+"] range: ");
+		for(AbstractEquipmentItem item : equipmentUnderManagement)
+			if(withingRange(lowPrice, highPrice, item.getPrice())) 
+				strb.append("<br />" + item.getName() + " "
+						+ item.getPrice() + Units.FLORIN.toString());
 		
 		
 		return strb.toString();

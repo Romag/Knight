@@ -1,4 +1,4 @@
-package ua.training.knight;
+package ua.training.knightModel;
 
 import java.util.List;
 
@@ -9,21 +9,24 @@ public class Knight {
 		squire = new Squire();
 	}
 	
-	public int equipmentCost() {
+	public String equipmentCost() {
 		return squire.calculateTotalCost();
 	}
 	
 	public String showSortedByWeightEquipment() {
-		return  squire.showEquipmentSortedByWeight();
+		return squire.showEquipmentSortedByWeight();
 	}
 	
 	public String showEquipmentWithingPriceRange(int low, int high) {
-		return squire.equipmentWithinPriceRange(low, high);
+		return squire.equipmentWithinPriceRangeHTML(low, high);
 	}
 	
 	public void swingSword() {
-		//TODO 
 		//System.out.println("Knight is swinging sword.");}
+	}
+	
+	public void courtDamsel() {
+		//System.out.println("Courting damsel.");
 	}
 	
 }

@@ -1,4 +1,4 @@
-package ua.training.knight;
+package ua.training.knightModel.equipment;
 
 import ua.training.knight.interfaces.ComparableByPrice;
 import ua.training.knight.interfaces.ComparableByWeight;
