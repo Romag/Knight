@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,9 +26,10 @@ import ua.training.knightModel.equipment.AbstractEquipmentItem;
  *
  */
 public class Squire {
-	private static final String pathToEquipmentList = "/home/ramil/workspace/eclipseWorkspace/JET_task_1/src/main/resources/ua/training/equipment/equipmentList.txt";
+	private static final String pathToEquipmentList = "ua/training/equipmentList.txt";
 	private List<AbstractEquipmentItem> equipmentUnderManagement;
 	private Smith smith;
+	
 	
 	public Squire() {
 		smith = new Smith();
@@ -35,14 +37,18 @@ public class Squire {
 	}
 	
 	private List<AbstractEquipmentItem> procureEquipment() {
-		//TODO add ability to choose which file to use to get list of equipment
+		System.out.println();
+		
+		
+
 		List<AbstractEquipmentItem> equipment = new ArrayList<>();
 		try {
-			for( String line : (Files.readAllLines(Paths.get(pathToEquipmentList))) ) {
+			Path path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(pathToEquipmentList).toURI());
+			for( String line : (Files.readAllLines(path)) ) {
 				equipment.add(smith.buildBySpecification(line));
 			}
 			
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 		
@@ -56,17 +62,17 @@ public class Squire {
 	}
 	
 	public String managedEquipment(){
-		StringBuilder strb = new StringBuilder();
-		for(AbstractEquipmentItem item : equipmentUnderManagement) {
-			strb.append(item.getName() + " " + item.getWeight() + " " + item.getPrice());
-		}
-		return strb.toString();
+		return managedEquipentTemplate("");
 	}
 	
 	public String managedEquipmentHTML() {
+		return managedEquipentTemplate("<br />");
+	}
+	
+	private String managedEquipentTemplate(String HTMLNewLine) {
 		StringBuilder strb = new StringBuilder();
 		for(AbstractEquipmentItem item : equipmentUnderManagement) {
-			strb.append("<br />" + item.getName() + " " 
+			strb.append(HTMLNewLine + item.getName() + " " 
 						+ item.getWeight() + Units.KILOGRAM.toString() + " " 
 						+ item.getPrice() + Units.FLORIN.toString());
 		}

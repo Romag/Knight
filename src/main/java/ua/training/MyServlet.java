@@ -1,6 +1,7 @@
 package ua.training;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -41,6 +42,9 @@ public class MyServlet extends HttpServlet {
 		
 		PrintWriter out = resp.getWriter(); 
 		out.println("This is servlet doGET.");
+		
+		
+
 		
 		out.println("<br/>" + knight.showSortedByWeightEquipment());;
 		

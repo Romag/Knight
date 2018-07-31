@@ -1,0 +1,5 @@
+Helmet 1 100
+Sword 4 600
+Sabatons 2 55
+Gauntlets 1 70
+Shield 4 300
