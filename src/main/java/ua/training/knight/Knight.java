@@ -1,6 +1,4 @@
-package ua.training.knightModel;
-
-import java.util.List;
+package ua.training.knight;
 
 public class Knight {
 	private Squire squire;
@@ -21,12 +19,6 @@ public class Knight {
 		return squire.equipmentWithinPriceRangeHTML(low, high);
 	}
 	
-	public void swingSword() {
-		//System.out.println("Knight is swinging sword.");}
-	}
-	
-	public void courtDamsel() {
-		//System.out.println("Courting damsel.");
-	}
+
 	
 }

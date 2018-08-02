@@ -1,22 +1,15 @@
-package ua.training.knightModel;
+package ua.training.knight;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
-import javax.swing.text.Highlighter.HighlightPainter;
+import java.util.stream.Collectors;
 
 import ua.training.knightModel.equipment.AbstractEquipmentItem;
 
@@ -36,18 +29,20 @@ public class Squire {
 		equipmentUnderManagement = procureEquipment();
 	}
 	
-	private List<AbstractEquipmentItem> procureEquipment() {
-		System.out.println();
-		
-		
-
+	private List<AbstractEquipmentItem> procureEquipment() {		
 		List<AbstractEquipmentItem> equipment = new ArrayList<>();
+		
+		
 		try {
-			Path path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(pathToEquipmentList).toURI());
-			for( String line : (Files.readAllLines(path)) ) {
-				equipment.add(smith.buildBySpecification(line));
-			}
-			
+//			for( String line : (Files.readAllLines(Paths.get(Thread.currentThread().getContextClassLoader().getResource(pathToEquipmentList).toURI()))) ) {
+//				equipment.add(smith.buildBySpecification(line));
+//			}
+
+			equipment = Files.readAllLines(Paths.get(Thread.currentThread().getContextClassLoader().getResource(pathToEquipmentList).toURI()))
+											.stream()
+											.map(smith::buildBySpecification)
+											.collect(Collectors.toList());
+
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}

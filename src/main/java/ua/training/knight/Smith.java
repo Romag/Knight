@@ -1,4 +1,4 @@
-package ua.training.knightModel;
+package ua.training.knight;
 
 import ua.training.knightModel.equipment.*;
 

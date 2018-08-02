@@ -1,4 +1,4 @@
-package ua.training;
+package servlet;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,17 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.training.knightModel.*;
+import ua.training.knight.*;
 
 
-@WebServlet(name = "Knight", urlPatterns = {"/Knight"})
+@WebServlet(name = "Knight", urlPatterns = {"/knight", "/equipprice", "/sortedequip",  })
 public class MyServlet extends HttpServlet {
 	private Knight knight;
 
 	@Override
 	public void init() throws ServletException {
 		System.out.println("Creating servlet.");
-		knight = new Knight();
+		
 		
 		super.init();
 	}
@@ -37,14 +37,13 @@ public class MyServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
             												throws IOException {
+		knight = new Knight();
+		
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html;charset=utf-8");
 		
 		PrintWriter out = resp.getWriter(); 
 		out.println("This is servlet doGET.");
-		
-		
-
 		
 		out.println("<br/>" + knight.showSortedByWeightEquipment());;
 		

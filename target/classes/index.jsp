@@ -3,7 +3,7 @@
 	<h2>Knight is equipped!</h2>
 	<p2>Enter range of equipment cost to display</p2>
 	
-	<form method="GET" action="Knight">
+	<form method="GET" action="knight">
 		<table>
 			<tr>
 				<td>Lower bound</td>
