@@ -1,4 +1,4 @@
-package ua.training.main;
+package ua.training;
 
 import servlet.MyServlet;
 import ua.training.knight.*;

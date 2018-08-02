@@ -1,6 +1,6 @@
 package ua.training.knight;
 
-import ua.training.knightModel.equipment.*;
+import ua.training.knight.equipment.*;
 
 /**
  * Factory pattern implementation for equipment.

@@ -1,4 +1,4 @@
-package ua.training.knightModel.equipment;
+package ua.training.knight.equipment;
 
 public class AbstractWeaponItem extends AbstractEquipmentItem{
 

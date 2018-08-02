@@ -11,7 +11,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import ua.training.knightModel.equipment.AbstractEquipmentItem;
+import ua.training.knight.equipment.AbstractEquipmentItem;
 
 /**
  * Manages equipment(weapons and armor) for a warrior(knight).
@@ -19,36 +19,25 @@ import ua.training.knightModel.equipment.AbstractEquipmentItem;
  *
  */
 public class Squire {
-	private static final String pathToEquipmentList = "ua/training/equipmentList.txt";
+	private final String pathToEquipmentList = "ua/training/equipmentList.txt";
 	private List<AbstractEquipmentItem> equipmentUnderManagement;
 	private Smith smith;
 	
 	
 	public Squire() {
 		smith = new Smith();
-		equipmentUnderManagement = procureEquipment();
-	}
-	
-	private List<AbstractEquipmentItem> procureEquipment() {		
-		List<AbstractEquipmentItem> equipment = new ArrayList<>();
-		
-		
 		try {
-//			for( String line : (Files.readAllLines(Paths.get(Thread.currentThread().getContextClassLoader().getResource(pathToEquipmentList).toURI()))) ) {
-//				equipment.add(smith.buildBySpecification(line));
-//			}
-
-			equipment = Files.readAllLines(Paths.get(Thread.currentThread().getContextClassLoader().getResource(pathToEquipmentList).toURI()))
-											.stream()
-											.map(smith::buildBySpecification)
-											.collect(Collectors.toList());
-
+			equipmentUnderManagement = procureEquipment(pathToEquipmentList);
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
-		
-		
-		return equipment;
+	}
+	
+	private List<AbstractEquipmentItem> procureEquipment(String path) throws IOException, URISyntaxException {		
+		return Files.readAllLines(Paths.get(Thread.currentThread().getContextClassLoader().getResource(path).toURI()))
+										.stream()
+										.map(smith::buildBySpecification)
+										.collect(Collectors.toList());
 	}
 	
 	public String showEquipmentSortedByWeight() {
